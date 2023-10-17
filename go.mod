@@ -1,4 +1,4 @@
-module restartAppleTV
+module github.com/angelaschule-os/AppleTVRestarter
 
 go 1.21.3
 
