@@ -102,7 +102,7 @@ func getUDIDs(client *http.Client) []string {
 
 func displayHelp() {
 	fmt.Println("Usage:")
-	fmt.Println("  your_program [--refresh] [--restart]")
+	fmt.Println("  AppleTVRestarter [--refresh] [--restart]")
 	fmt.Println("Options:")
 	fmt.Println("  --refresh\tSend refresh command to devices")
 	fmt.Println("  --restart\tSend restart command to devices")
