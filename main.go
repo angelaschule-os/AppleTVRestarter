@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -27,7 +28,17 @@ func init() {
 	BASE_URL = os.Getenv("BASE_URL")
 	NETWORKT_ID = os.Getenv("NETWORKT_ID")
 	KEY = os.Getenv("KEY")
-	AUTHORIZATION = os.Getenv("AUTHORIZATION")
+}
+
+func getAuthorizationHeader() string {
+	// Combine Network ID and Key
+	auth := NETWORKT_ID + ":" + KEY
+
+	// Base64 encode
+	encodedAuth := base64.StdEncoding.EncodeToString([]byte(auth))
+
+	// Return full header value
+	return "Basic " + encodedAuth
 }
 
 func sendCommandToDevices(udids []string, client *http.Client, command string) {
@@ -36,7 +47,7 @@ func sendCommandToDevices(udids []string, client *http.Client, command string) {
 	for _, udid := range udids {
 		url := fmt.Sprintf("%s/devices/%s/%s", BASE_URL, udid, command)
 		req, _ := http.NewRequest("POST", url, nil)
-		req.Header.Add("Authorization", AUTHORIZATION)
+		req.Header.Add("Authorization", getAuthorizationHeader())
 		resp, err := client.Do(req)
 		if err != nil {
 			log.Printf("Failed to %s device with UDID %s: %v", command, udid, err)
@@ -60,7 +71,7 @@ func getUDIDs(client *http.Client) []string {
 
 	// Set headers
 	req, _ := http.NewRequest("GET", fmt.Sprintf("%s/devices?assettag=AppleTV", BASE_URL), nil)
-	req.Header.Add("Authorization", AUTHORIZATION)
+	req.Header.Add("Authorization", getAuthorizationHeader())
 	req.Header.Add("Accept", "application/json")
 
 	// Execute request

@@ -16,10 +16,9 @@ go build
 Create a `.env` file with the following content:
 
 ```env
-NETWORKT_ID   = "XXXXXXXX"
 BASE_URL      = "https:///{yourDomain}.jamfcloud.com/api"
+NETWORKT_ID   = "XXXXXXXX"
 KEY           = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-AUTHORIZATION = "Basic XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 
 ```shell
