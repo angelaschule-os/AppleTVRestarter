@@ -36,7 +36,11 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: AppleTVRestarter-${{ matrix.os }}
-        path: ./AppleTVRestarter
+        path: |
+              if [ "$RUNNER_OS" == "Windows" ]; then
+                  ./AppleTVRestarter.exe
+              else
+                  ./AppleTVRestarter
 
   release:
     needs: build
@@ -68,7 +72,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./binary-ubuntu-latest/AppleTVRestarter-ubuntu-latest
+        asset_path: ./AppleTVRestarter-ubuntu-latest/AppleTVRestarter
         asset_name: AppleTVRestarter-ubuntu-latest-amd64
         asset_content_type: application/octet-stream
 
@@ -78,7 +82,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./binary-macos-latest/AppleTVRestarter-macos-latest
+        asset_path: ./AppleTVRestarter-macos-latest/AppleTVRestarter
         asset_name: AppleTVRestarter-macos-latest-amd64
         asset_content_type: application/octet-stream
 
@@ -88,6 +92,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./binary-windows-latest/AppleTVRestarter-windows-latest
-        asset_name: AppleTVRestarter-windows-latest-amd64
+        asset_path: ./AppleTVRestarter-windows-latest/AppleTVRestarter.exe
+        asset_name: AppleTVRestarter-windows-latest-amd64.exe
         asset_content_type: application/octet-stream
