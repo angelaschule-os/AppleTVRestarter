@@ -17,7 +17,7 @@ Create a `.env` file with the following content:
 
 ```env
 BASE_URL      = "https:///{yourDomain}.jamfcloud.com/api"
-NETWORK_ID   = "XXXXXXXX"
+NETWORK_ID    = "XXXXXXXX"
 KEY           = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 
