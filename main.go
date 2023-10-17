@@ -15,7 +15,7 @@ import (
 
 var (
 	BASE_URL      string
-	NETWORKT_ID   string
+	NETWORK_ID    string
 	KEY           string
 	AUTHORIZATION string
 )
@@ -26,13 +26,13 @@ func init() {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 	BASE_URL = os.Getenv("BASE_URL")
-	NETWORKT_ID = os.Getenv("NETWORKT_ID")
+	NETWORK_ID = os.Getenv("NETWORKT_ID")
 	KEY = os.Getenv("KEY")
 }
 
 func getAuthorizationHeader() string {
 	// Combine Network ID and Key
-	auth := NETWORKT_ID + ":" + KEY
+	auth := NETWORK_ID + ":" + KEY
 
 	// Base64 encode
 	encodedAuth := base64.StdEncoding.EncodeToString([]byte(auth))
