@@ -31,6 +31,21 @@ Options:
   --help	Display this help message
 ```
 
+## Create a release on Github
+
+
+Creating an annotated tag in Git and share it.
+```shell
+git tag -a v1.0 -m "Version 1.0"
+git push origin v1.0
+
+```
+
+By default, the git push command doesn’t transfer tags to remote servers. You
+will have to explicitly push tags to a shared server after you have created
+them.
+
+
 ## Links
 
 - [Jamf School API](https://school.jamfcloud.com/api/docs/)
