@@ -26,7 +26,7 @@ func init() {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 	BASE_URL = os.Getenv("BASE_URL")
-	NETWORK_ID = os.Getenv("NETWORKT_ID")
+	NETWORK_ID = os.Getenv("NETWORK_ID")
 	KEY = os.Getenv("KEY")
 }
 
