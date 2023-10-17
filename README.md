@@ -13,6 +13,15 @@ go build
 
 ## Usage
 
+Create a `.env` file with the following content:
+
+```env
+NETWORKT_ID   = "XXXXXXXX"
+BASE_URL      = "https:///{yourDomain}.jamfcloud.com/api"
+KEY           = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+AUTHORIZATION = "Basic XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+```
+
 ```shell
 Usage:
   AppleTVRestarter [--refresh] [--restart]
@@ -21,3 +30,7 @@ Options:
   --restart	Send restart command to devices
   --help	Display this help message
 ```
+
+## Links
+
+- [Jamf School API](https://school.jamfcloud.com/api/docs/)
