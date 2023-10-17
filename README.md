@@ -8,7 +8,8 @@ You need at least [Go](https://go.dev/) 1.21.3 to build this.
 ```shell
 git clone https://github.com/angelaschule-os/AppleTVRestarter
 cd AppleTVRestarter
-go build
+go build -ldflags "-X main.GitCommit=$(git rev-parse --short HEAD)"
+
 ```
 
 ## Usage

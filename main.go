@@ -17,6 +17,8 @@ var (
 	BASE_URL      string
 	AUTHORIZATION string
 	client        = &http.Client{}
+	GitCommit     string // This will hold the git commit hash
+
 )
 
 func init() {
@@ -95,6 +97,8 @@ func getUDIDs() []string {
 func main() {
 	refreshFlag := flag.Bool("refresh", false, "Send refresh command to devices")
 	restartFlag := flag.Bool("restart", false, "Send restart command to devices")
+	versionFlag := flag.Bool("version", false, "Print version information and exit")
+
 	flag.Parse()
 
 	if flag.NFlag() == 0 {
@@ -117,5 +121,10 @@ func main() {
 	if *restartFlag {
 		log.Println("Sending restart command...")
 		sendCommandToDevices(udids, "restart")
+	}
+
+	if *versionFlag {
+		fmt.Println("AppleTVRestarter Commit Hash:", GitCommit)
+		return
 	}
 }
