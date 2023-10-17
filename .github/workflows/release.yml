@@ -30,7 +30,7 @@ jobs:
       run: go build -ldflags "-X main.GitCommit=$(git rev-parse --short HEAD)"
 
     - name: Upload built binary
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: AppleTVRestarter-${{ matrix.os }}
         path: ./AppleTVRestarter
@@ -40,14 +40,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
-    - name: Download all artifacts
-      uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
+      with:
+        name: Download all artifacts
+
+    - name: Display structure of downloaded files
+      run: ls -R
 
     - name: Create Release
       id: create_release
-      uses: actions/create-release@v1
+      uses: actions/create-release@v1.1.4
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -57,7 +61,7 @@ jobs:
         prerelease: false
 
     - name: Attach binaries to release (Ubuntu)
-      uses: actions/upload-release-asset@v1
+      uses: actions/upload-release-asset@v3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -67,7 +71,7 @@ jobs:
         asset_content_type: application/octet-stream
 
     - name: Attach binaries to release (macOS)
-      uses: actions/upload-release-asset@v1
+      uses: actions/upload-release-asset@v3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -77,7 +81,7 @@ jobs:
         asset_content_type: application/octet-stream
 
     - name: Attach binaries to release (Windows)
-      uses: actions/upload-release-asset@v1
+      uses: actions/upload-release-asset@v3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
