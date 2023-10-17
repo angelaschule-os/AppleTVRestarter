@@ -1,4 +1,4 @@
-name: Release
+name: Create Release and Upload Binaries
 
 on:
   push:
@@ -7,8 +7,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -16,7 +19,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: 1.21.3
+        go-version: 1.16
 
     - name: Get dependencies
       run: go get -v -t -d ./...
@@ -25,6 +28,22 @@ jobs:
 
     - name: Build
       run: go build -ldflags "-X main.GitCommit=$(git rev-parse --short HEAD)"
+
+    - name: Upload built binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: binary-${{ matrix.os }}
+        path: ./AppleTVRestarter
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Download all artifacts
+      uses: actions/download-artifact@v2
 
     - name: Create Release
       id: create_release
@@ -37,14 +56,32 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Upload Release Asset
-      id: upload-release-asset
+    - name: Attach binaries to release (Ubuntu)
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./AppleTVRestarter
-        asset_name: AppleTVRestarter 
+        asset_path: ./binary-ubuntu-latest/AppleTVRestarter
+        asset_name: AppleTVRestarter-ubuntu-amd64
         asset_content_type: application/octet-stream
 
+    - name: Attach binaries to release (macOS)
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./binary-macos-latest/AppleTVRestarter
+        asset_name: AppleTVRestarter-macos-amd64
+        asset_content_type: application/octet-stream
+
+    - name: Attach binaries to release (Windows)
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./binary-windows-latest/AppleTVRestarter
+        asset_name: AppleTVRestarter-windows-amd64
+        asset_content_type: application/octet-stream
