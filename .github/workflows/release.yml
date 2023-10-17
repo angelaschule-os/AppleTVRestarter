@@ -36,11 +36,11 @@ jobs:
         GO111MODULE: "auto"
 
     - name: Build
-      if: runner.arch != 'arm64'
+      if: runner.arch != 'ARM64'
       run:  go build -ldflags "-X main.GitCommit=$(git rev-parse --short HEAD)"
 
     - name: Build arm64
-      if: runner.arch == 'arm64'
+      if: runner.arch == 'ARM64'
       run: GOOS=linux GOARCH=arm64 go build -ldflags "-X main.GitCommit=$(git rev-parse --short HEAD)" 
 
     - name: Display file structure
