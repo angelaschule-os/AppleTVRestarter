@@ -38,7 +38,7 @@ jobs:
     - name: Build
       run: |
            if [ "$RUNNER_ARCH" == "ARM64" ]; then
-               GOOS=linux GOARCH=arm64 go build -ldflags "-X main.GitCommit=$(git rev-parse --short HEAD)"
+               env GOOS=${{matrix.os}} GOARCH=${{matrix.arch}} go build -ldflags "-X main.GitCommit=$(git rev-parse --short HEAD)"
            else
                go build -ldflags "-X main.GitCommit=$(git rev-parse --short HEAD)"
 
