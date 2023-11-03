@@ -95,6 +95,10 @@ func getUDIDs() []string {
 }
 
 func main() {
+	flag.Usage = func() {
+		fmt.Fprintf(flag.CommandLine.Output(), "Usage of %s (version %s):\n", os.Args[0], GitCommit)
+		flag.PrintDefaults()
+	}
 	refreshFlag := flag.Bool("refresh", false, "Send refresh command to devices")
 	restartFlag := flag.Bool("restart", false, "Send restart command to devices")
 	versionFlag := flag.Bool("version", false, "Print version information and exit")
