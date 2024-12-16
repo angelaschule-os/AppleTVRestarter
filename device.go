@@ -47,10 +47,20 @@ type OS struct {
 }
 
 type Owner struct {
-	ID         int      `json:"id"`
-	LocationID int      `json:"locationId"`
-	Name       string   `json:"name"`
-	VPP        []string `json:"vpp"`
+	ID         int    `json:"id"`
+	LocationID int    `json:"locationId"`
+	Username   string `json:"username"`
+	Email      string `json:"email"`
+	FirstName  string `json:"firstName"`
+	LastName   string `json:"lastName"`
+	Name       string `json:"name"`
+	VPP        []VPP  `json:"vpp"`
+	Notes      string `json:"notes"`
+	Modified   string `json:"modified"`
+}
+
+type VPP struct {
+	Status string `json:"status"`
 }
 
 type Region struct {
