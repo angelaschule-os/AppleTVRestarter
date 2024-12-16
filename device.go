@@ -26,7 +26,7 @@ type Device struct {
 	TotalCapacity       float64     `json:"totalCapacity"`
 	AvailableCapacity   float64     `json:"availableCapacity"`
 	ICloudBackupEnabled bool        `json:"iCloudBackupEnabled"`
-	ICloudBackupLatest  string      `json:"iCloudBackupLatest"`
+	ICloudBackupLatest  int         `json:"iCloudBackupLatest"`
 	ITunesStoreLoggedIn bool        `json:"iTunesStoreLoggedIn"`
 	Region              Region      `json:"region"` // single object, not an array
 	Notes               string      `json:"notes"`
@@ -60,11 +60,11 @@ type Region struct {
 
 type NetworkInfo struct {
 	IPAddress              string `json:"IPAddress"`
-	IsNetworkTethered      string `json:"isNetworkTethered"`
+	IsNetworkTethered      int    `json:"isNetworkTethered"`
 	BluetoothMAC           string `json:"BluetoothMAC"`
 	WiFiMAC                string `json:"WiFiMAC"`
 	EthernetMACs           string `json:"EthernetMACs"`
-	VoiceRoamingEnabled    string `json:"VoiceRoamingEnabled"`
-	DataRoamingEnabled     string `json:"DataRoamingEnabled"`
-	PersonalHotspotEnabled string `json:"PersonalHotspotEnabled"`
+	VoiceRoamingEnabled    int    `json:"VoiceRoamingEnabled"`
+	DataRoamingEnabled     int    `json:"DataRoamingEnabled"`
+	PersonalHotspotEnabled int    `json:"PersonalHotspotEnabled"`
 }
